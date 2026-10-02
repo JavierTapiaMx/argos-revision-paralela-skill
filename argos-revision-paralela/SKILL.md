@@ -9,7 +9,7 @@ Ejecuta el flujo del apartado 3 de las instrucciones del proyecto Argos con suba
 
 ## Principio
 
-Paralelizar la lectura de pruebas; centralizar el juicio; automatizar lo mecánico. Un piloto (expediente CM/SH/ADE/104/2022 UNO) mostró que cinco calificadores en paralelo coinciden en 70/70 resultados y en ~90 % de riesgos, y que la divergencia nace de reglas transversales (alusión a la irregularidad, A.8, A.9) aplicadas por separado. Esas reglas las aplica una sola instancia.
+Paralelizar la lectura de pruebas; centralizar el juicio; automatizar lo mecánico. Un piloto con un expediente real mostró que cinco calificadores en paralelo coinciden en 70/70 resultados y en ~90 % de riesgos, y que la divergencia nace de reglas transversales (alusión a la irregularidad, A.8, A.9) aplicadas por separado. Esas reglas las aplica una sola instancia.
 
 ## Independencia
 
