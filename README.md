@@ -8,8 +8,16 @@ Este skill **no contiene reglas de revisión**. Solo organiza el trabajo. Las re
 
 ```
 argos-revision-paralela/
-├── SKILL.md    Instrucciones del skill (lo que Claude lee y ejecuta)
-└── README.md   Este archivo
+├── SKILL.md                         Instrucciones del skill (lo que Claude lee y ejecuta)
+├── datos_revision.plantilla.json    Esquema del único insumo específico del expediente
+└── scripts/                         Código genérico, sin datos de expedientes
+    ├── setup.sh, ocr_all.py         Preparación y OCR en paralelo con enderezado automático
+    ├── cap.py, capturas.py, grid.py, montage.py   Capturas declarativas y revisión visual
+    ├── calc_lib.py, datos.py, protocolo_const.py, lib.py, rep.py   Cálculos y estructuras
+    ├── mk_tablero.py, mk_informe.py, mk_ficha.py, mk_anexo.py, mk_json.py   Generadores
+    ├── qc.py                        Control de calidad mecánico (no modifica resultados)
+    └── build_all.sh                 Capturas, cinco generadores en paralelo y qc.py
+README.md                            Este archivo (en la raíz del repositorio)
 ```
 
 ## Requisitos
@@ -43,7 +51,7 @@ La lectura de pruebas se reparte para ganar tiempo, pero el juicio se centraliza
 
 ## Instalación
 
-1. Comprime la carpeta `argos-revision-paralela` en un archivo `.zip`, de modo que `SKILL.md` quede dentro de esa carpeta.
+1. Comprime la carpeta `argos-revision-paralela` (con `scripts/` y la plantilla JSON) en un archivo `.zip`, de modo que `SKILL.md` quede dentro de esa carpeta.
 2. En la configuración de Claude, en la sección de Skills, sube el archivo `.zip`. Si ya existe un skill con el mismo nombre, reemplázalo. El nombre exacto del menú puede variar según la versión de la aplicación.
 3. Comprueba que el skill aparezca con el nombre `argos-revision-paralela` y su descripción.
 
@@ -81,3 +89,4 @@ El material que se revisa con este skill pertenece a clientes. Este repositorio 
 | Versión         | Cambios                                                                                                                                                                                                               |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026.10.02.1029 | El skill incluye el marco jurídico aplicable (estatal o federal) como insumo obligatorio, se elimina la dependencia de una carpeta de herramientas y los entregables se guardan directamente en la carpeta de trabajo |
+| 2026.10.02.1930 | Se agrega la carpeta `scripts/` (OCR en paralelo con enderezado, capturas declarativas, generadores de los cuatro PDF y del JSON, `qc.py`) y `datos_revision.plantilla.json`; el único insumo del expediente es `datos_revision.json`. Los scripts no contienen datos de expedientes ni modifican resultados. Las constantes A.8 y A.9 viven en `protocolo_const.py` y deben actualizarse al cambiar la versión del protocolo |

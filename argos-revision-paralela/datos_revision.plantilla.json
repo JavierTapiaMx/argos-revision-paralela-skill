@@ -1,0 +1,58 @@
+{
+  "protocolo": "AAAA.MM.DD.HHmm (versión del protocolo aplicada)",
+  "fecha": "D de mes de AAAA",
+  "contrato": "Número del instrumento tal como aparece en el documento (p. ej. CM/XX/YYY/000/2000 UNO)",
+  "contrato_archivo": "El mismo número con guiones en lugar de diagonales",
+  "proveedor": "Razón social completa",
+  "proveedor_corto": "Nombre corto: razón social sin tipo societario, cada palabra con mayúscula inicial",
+  "ficha": [["Campo de la ficha del contrato", "Valor"]],
+  "inventario": [
+    {"clave": "A", "archivo": "nombre.pdf", "hash": "sha256", "paginas": 0, "metadatos": "equipo y fecha de creación", "contenido": "qué contiene el archivo",
+     "paginas_detalle": [["A-1", "tipo de documento, folio, fecha, emisor, destinatario y firmantes"]]}
+  ],
+  "cronologia": [
+    {"fecha": "AAAA-MM-DD", "hora": "", "hecho": "", "emisor": "", "archivo_pagina": "A-1", "observacion": "", "fuera_de_secuencia": false}
+  ],
+  "lecturas_dudosas": [
+    {"id": "LD-1", "pagina": "A-1", "campo": "", "lecturas": ["lectura 1", "lectura 2"], "implicacion": ""}
+  ],
+  "puntos": [
+    {"n": 1, "resultado": "Cumple|Cumple parcialmente|No cumple|No acreditado|No aplica", "riesgo": "Bajo|Medio|Alto|Crítico|null",
+     "fuera_del_alcance": false, "con_alusion": false, "evidencia": "A-1; C-11", "analisis": "", "accion": ""}
+  ],
+  "pruebas": {"B.0": {"estado": "sin observación|observación|hallazgo|pendiente", "nota": ""}},
+  "hallazgos": [
+    {"id": "H1", "titulo": "", "riesgo": "Alto", "puntos": [23, 59],
+     "filas": [["Obligación", ""], ["Fundamento", ""], ["Actuación", ""], ["Documento", ""], ["Evidencia", ""], ["Resultado", ""], ["Riesgo", "Alto"], ["Acción recomendada", ""]]}
+  ],
+  "calculos": [{"concepto": "", "operacion": "", "resultado": ""}],
+  "criterios": [{"id": "CV-1", "puntos": "Puntos ...", "texto": "lecturas posibles con su cálculo, la adoptada y el documento que resolvería la duda"}],
+  "documentacion": [{"n": 1, "documento": "", "emisor": "", "puntos": ""}],
+  "capa_externa": [{"consulta": "", "resultado": "", "fuente": "URL y fecha de consulta, o Pendiente"}],
+  "textos": {
+    "nota_inventario": "Duplicados por hash, significado de las claves de página, páginas enderezadas y foliado «x de y»",
+    "alcance_no_obran": "Oración «No obran: ...» con los documentos que el legajo no contiene",
+    "marco": "Declaración del marco jurídico (ámbito, entidad, ley, fecha de verificación, valores de referencia)",
+    "criterio_regimen": "Régimen aplicado y, si la fuente de los recursos no se identifica, la hipótesis de A.6",
+    "nota_cronologia": "Qué actos se resaltan, fines de semana e inhábiles"
+  },
+  "ficha_ejecutiva": {
+    "proveedor_linea": "Razón social (RFC)",
+    "procedimiento": "Procedimiento y fundamento",
+    "datos": [["Objeto", ""], ["Importe", ""], ["Vigencia y firma", ""], ["Documentación revisada", ""]],
+    "dictamen": "4 a 6 líneas: qué está bien, qué falla y riesgo global",
+    "hallazgos": [{"titulo": "", "id": "H1", "riesgo": "Alto", "puntos": [23, 59], "texto": "una o dos líneas con cifras"}],
+    "acciones": ["cinco acciones numeradas y ejecutables"]
+  },
+  "capturas": {
+    "archivos": {"A": "nombre-del-archivo-A.pdf"},
+    "secciones": [{"letra": "A", "hallazgo": "H1"}],
+    "comparativas": {"H1": [["Dato", "Documento A", "Documento B"]]},
+    "puntos_por_captura": {"A.1": "23, 59"},
+    "capturas": [
+      {"key": "A.1", "h": "H1", "titulo": "", "fuente": [["A-4", "documento, fecha y firmante"]], "obs": "qué acredita y con qué contrasta",
+       "paneles": [{"page": "A-4", "items": [["t", "frase inicial", "frase final o null", 0], ["b", 0, 0, 0, 0], ["c", 0, 0, 0, 0]], "pad": [130, 110], "label": null}]}
+    ],
+    "capturas_ld": []
+  }
+}
