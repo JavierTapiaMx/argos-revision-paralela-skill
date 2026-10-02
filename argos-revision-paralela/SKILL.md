@@ -17,7 +17,21 @@ Toda ejecución es independiente. No busques, cargues, consultes ni compares res
 
 ## Scripts (carpeta `scripts/`)
 
-Ubicación: la carpeta `scripts/` que acompaña a este skill. Si el skill está instalado sin esa carpeta, cópiala de la computadora del usuario (`C:\Users\Javier\Code\Claude Skills\argos-revision-paralela-skill\argos-revision-paralela\scripts`, más `datos_revision.plantilla.json` de la carpeta superior): lista la carpeta con `device_list_dir`, prepara los archivos con `device_stage_files` y cópialos a `./argos/scripts`. Si no hay acceso, avisa al usuario y procede sin ellos (el flujo manual sigue siendo válido).
+Ubicación y obtención de `scripts/` (el skill instalado solo trae este `SKILL.md`; los scripts viven en el repositorio público del skill). Antes de cualquier paso, crea la carpeta de trabajo `argos/` y trabaja desde ella (los scripts usan rutas relativas y el entorno de ejecución puede olvidar el estado del shell entre llamadas: abre cada comando con `cd` a esa carpeta). Usa la primera de estas opciones que funcione:
+
+1. `scripts/` junto a este `SKILL.md` (directorio base del skill), si existe: cópiala a `argos/scripts`.
+2. `argos/scripts` ya existente en la sesión.
+3. Descarga desde el repositorio del skill:
+
+```bash
+mkdir -p argos && cd argos && [ -d scripts ] || { git clone --depth 1 https://github.com/JavierTapiaMx/argos-revision-paralela-skill.git _repo \
+  && cp -r _repo/argos-revision-paralela/scripts scripts && cp _repo/argos-revision-paralela/datos_revision.plantilla.json . ; }
+```
+
+4. Si no hay acceso de red a `github.com`, pide al usuario que conecte la carpeta de su copia del repositorio (o que adjunte la carpeta `scripts`) y cópiala con `device_stage_files`.
+5. Si nada funciona, avisa al usuario en una frase y procede sin scripts: el flujo manual sigue siendo válido.
+
+Usa únicamente scripts de esas fuentes y no los modifiques. Después corre `bash scripts/setup.sh` (instala o descarga el idioma español de tesseract; `ocr_all.py` lo detecta solo). La plantilla `datos_revision.plantilla.json` es un esqueleto del esquema, no un expediente de prueba: un `datos_revision.json` real debe tener los 70 puntos, las pruebas B.0 a B.9 y la sección `capturas` completa.
 
 | Script | Para qué sirve |
 | --- | --- |

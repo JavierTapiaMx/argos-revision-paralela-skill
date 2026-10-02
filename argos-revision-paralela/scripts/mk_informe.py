@@ -21,7 +21,7 @@ def build(path):
     el.append(P(d.T['nota_inventario'],stc))
     el+=[CondPageBreak(70),Paragraph('Contenido por página',sth2)]
     rows=[hdr('Clave','Documento')]
-    for f in 'ABC':
+    for f in d.PAGINAS:
         for k,txt in d.PAGINAS[f]: rows.append([P(k,stcb),P(txt,stc)])
     el.append(tbl(rows,[40,FW-40]))
     el+=[CondPageBreak(70),Paragraph('Lecturas dudosas (B.1)',sth2)]

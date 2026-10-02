@@ -25,7 +25,8 @@ def build(path):
     doc=BaseDocTemplate(path,pagesize=(W,H),leftMargin=28,rightMargin=28,topMargin=34,bottomMargin=32,title='Anexo de evidencias '+d.NUM,author='El Despacho')
     doc.addPageTemplates([PageTemplate(id='p',frames=[Frame(28,32,FW,H-34-32,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)])])
     el=[Paragraph(f'Anexo de evidencias · {esc(d.NUM)}',S('t',13,font='LS-B',color=HexColor('#263238'),spaceAfter=3))]
-    el.append(P('Los recortes proceden de las digitalizaciones recibidas, sin alteración alguna; el recuadro rojo con relleno amarillo solo señala el texto pertinente. Cada captura cita archivo y página (A: CM-SH-ADE-104-2022 UNO.pdf; B: 181632.pdf; C: FOLIO 178982 15 DIC 2022.pdf) y las páginas giradas se enderezaron antes de recortar.',sf))
+    ARCH='; '.join(f'{k}: {v}' for k,v in d.CAP['archivos'].items())
+    el.append(P(f'Los recortes proceden de las digitalizaciones recibidas, sin alteración alguna; el recuadro rojo con relleno amarillo solo señala el texto pertinente. Cada captura cita archivo y página ({ARCH}) y las páginas giradas se enderezaron antes de recortar.',sf))
     byh={h['id']:h for h in d.H}
     for letter_,hid in SEC:
         h=byh[hid]; caps=[c for c in CAPS if c['h']==hid]

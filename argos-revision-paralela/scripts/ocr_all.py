@@ -7,6 +7,8 @@ Marca como 'revisar_visualmente' toda página con OCR pobre (candidata a lectura
 import sys,os,re,json,hashlib,subprocess,shutil
 from multiprocessing import Pool
 from PIL import Image
+_TD=os.environ.get('ARGOS_TESSDATA') or os.path.expanduser('~/.cache/argos-tessdata')  # idioma español descargado por setup.sh
+if os.path.exists(os.path.join(_TD,'spa.traineddata')): os.environ['TESSDATA_PREFIX']=_TD
 ENV=dict(os.environ,OMP_THREAD_LIMIT='1')
 def sh(cmd): return subprocess.run(cmd,capture_output=True,text=True,env=ENV)
 def score(img_path,psm=4,tsv_text=None):

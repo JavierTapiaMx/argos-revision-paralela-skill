@@ -51,11 +51,13 @@ La lectura de pruebas se reparte para ganar tiempo, pero el juicio se centraliza
 
 ## Instalación
 
-1. Comprime la carpeta `argos-revision-paralela` (con `scripts/` y la plantilla JSON) en un archivo `.zip`, de modo que `SKILL.md` quede dentro de esa carpeta.
-2. En la configuración de Claude, en la sección de Skills, sube el archivo `.zip`. Si ya existe un skill con el mismo nombre, reemplázalo. El nombre exacto del menú puede variar según la versión de la aplicación.
-3. Comprueba que el skill aparezca con el nombre `argos-revision-paralela` y su descripción.
+**Opción 1: pedírselo a Claude.** En una sesión del proyecto Argos, escribe: «Instala el skill argos-revision-paralela desde https://github.com/JavierTapiaMx/argos-revision-paralela-skill». Claude lee el `SKILL.md` del repositorio y te muestra una tarjeta de propuesta; al guardarla se instala el skill. La tarjeta solo guarda el `SKILL.md`: los scripts no se instalan, el skill los descarga de este repositorio al ejecutarse (necesita que la sesión tenga acceso a `github.com`; si no lo tiene, avisa y sigue con el flujo manual).
 
-Subir el repositorio a GitHub no instala ni actualiza el skill en Claude: cada instalación o actualización se hace con el paso anterior.
+**Opción 2: archivo .zip.** Comprime la carpeta `argos-revision-paralela` (con `scripts/` y la plantilla JSON) de modo que `SKILL.md` quede dentro de esa carpeta, súbela en la sección de Skills de la configuración de Claude y reemplaza el skill si ya existe. El nombre exacto del menú puede variar según la versión de la aplicación.
+
+En ambos casos comprueba que el skill aparezca con el nombre `argos-revision-paralela` y su descripción. Subir cambios a GitHub no actualiza por sí solo el `SKILL.md` instalado (sí actualiza los scripts, que se descargan en cada ejecución); para actualizar el `SKILL.md` repite la opción 1 o la 2.
+
+Mantén el repositorio **público** y sin datos de expedientes: si se vuelve privado, la descarga de los scripts falla para quienes no tengan acceso.
 
 ## Uso
 
@@ -90,3 +92,4 @@ El material que se revisa con este skill pertenece a clientes. Este repositorio 
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026.10.02.1029 | El skill incluye el marco jurídico aplicable (estatal o federal) como insumo obligatorio, se elimina la dependencia de una carpeta de herramientas y los entregables se guardan directamente en la carpeta de trabajo |
 | 2026.10.02.1930 | Se agrega la carpeta `scripts/` (OCR en paralelo con enderezado, capturas declarativas, generadores de los cuatro PDF y del JSON, `qc.py`) y `datos_revision.plantilla.json`; el único insumo del expediente es `datos_revision.json`. Los scripts no contienen datos de expedientes ni modifican resultados. Las constantes A.8 y A.9 viven en `protocolo_const.py` y deben actualizarse al cambiar la versión del protocolo |
+| 2026.10.02.2000 | El skill obtiene `scripts/` por sí mismo (carpeta del skill, sesión o `git clone` de este repositorio) y ya no depende de una ruta local; `setup.sh` descarga el idioma español de tesseract si `apt` no lo tiene y `ocr_all.py` lo detecta solo; `mk_informe.py` ya no supone que los archivos se llamen A, B y C; `mk_anexo.py` toma los nombres de archivo de los datos y no de un expediente concreto; se quita un dato de expediente de `rep.py` |

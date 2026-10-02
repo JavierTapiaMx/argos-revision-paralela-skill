@@ -33,7 +33,6 @@ def riesgo_cell(r):
     return Paragraph(f'<font name="LS-B" color="#FFFFFF">{r}</font>',ParagraphStyle('rc',parent=stc,alignment=1))
 def riesgo_style(row,r):
     return [('BACKGROUND',(3,row),(3,row),RIE_COL[r])] if r else []
-FILES={'A':'CM-SH-ADE-104-2022 UNO.pdf','B':'181632.pdf','C':'FOLIO 178982 15 DIC 2022.pdf'}
 def conteos_rubro(r):
     nums=list(r[3]); c={k:0 for k in ['Cumple','Cumple parcialmente','No cumple','No acreditado','No aplica']}; rr={'Alto':0,'Medio':0,'Bajo':0,'Crítico':0}; fa=0
     for n in nums:
