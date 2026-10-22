@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh issue *)",
+      "Bash(gh pr *)",
+      "Bash(gh label *)",
+      "Bash(gh project *)",
+      "Bash(gh release *)",
+      "Bash(gh api *)",
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git switch *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push -u origin *)",
+      "PowerShell(gh issue *)",
+      "PowerShell(gh pr *)",
+      "PowerShell(gh label *)",
+      "PowerShell(gh project *)",
+      "PowerShell(gh release *)",
+      "PowerShell(gh api *)"
+    ]
+  }
+}
