@@ -44,7 +44,8 @@ Before creating a branch, committing, opening or merging a pull request, or rele
 
 - Work one step at a time. Before each step, say what it changes and why.
 - Commit each step on its own, then stop until the developer replies "next" (or "siguiente").
-- Under `/implement`, do every step and commit each one without stopping.
+- Under `/implement` or `/implement-spec`, assign each issue to yourself before any other write.
+- Under `/implement` or `/implement-spec`, do every step and commit each one without stopping.
 - When the work is done, open the pull request and stop. Merge only when the developer replies "merge".
 <!-- dev-workflow:working-with-the-developer:end -->
 
