@@ -39,6 +39,8 @@ gh project item-edit <project-number> --owner JavierTapiaMx --url <issue-url> --
 
 Wayfinder maps and tickets (labels `wayfinder:*`) hold decisions, not implementation work. They carry only their `wayfinder:*` label: no other labels, no Priority, no Size.
 
+A Wayfinder ticket gets a `docs/*` branch and a pull request only when its resolution changes repository files, such as `GLOSSARY.md` or an ADR. That pull request follows the daily workflow from step 2, except that its body mentions the ticket as "see #n" instead of `Closes #n`: the Wayfinder skill closes the ticket when it records the resolution. Otherwise the ticket resolves on the issue, with no `docs/*` branch or pull request. Research and prototype findings still go on their own `research/*` and `prototype/*` branches.
+
 ### Starting work
 
 Assign the issue to yourself before any other write: `gh issue edit <n> --add-assignee @me`. A Wayfinder claim does the same. In a repository with a GitHub Project, the `project-fields-on-assign` workflow then sets Iteration to the current iteration and Status to In progress.
@@ -101,6 +103,16 @@ Read an issue before proposing to close it. A `wayfinder:map` stays open until t
    git switch develop && git pull
    git cleanup
    ```
+
+## Never destroy work
+
+The agent never destroys work or forces anything without the developer's authorization:
+
+- When a push or a merge fails, show the error and wait. No blind retries, no workarounds.
+- Force-push only when the developer explicitly authorizes it. The rulesets already block it on `main` and `develop`; this covers every other branch.
+- Keep uncommitted changes. Never run `git stash`, `git reset --hard`, `git checkout`, `git switch --discard-changes`, `git restore`, or `git clean` over them.
+
+`.claude/settings.json` backs these rules: it denies the commands that throw work away, rebase, skip hooks, merge past a failing check, or merge without a merge commit, and asks before a force-push.
 
 ## Release (`develop` -> `main`)
 
@@ -186,7 +198,7 @@ Dependabot opens security pull requests as soon as a fix exists, and version pul
 
 - GitHub deletes a pull request's branch when it merges.
 - `fetch.prune` removes local `origin/*` references to branches deleted on GitHub.
-- `git cleanup` deletes local branches already merged into `develop`. It skips `main`, `develop`, the current branch, and branches open in another worktree, and it uses `git branch -d`, which refuses to delete unmerged work.
+- `git cleanup` deletes local branches already merged into `develop`. It skips `main`, `develop`, `research/*`, `prototype/*`, the current branch, and branches open in another worktree, and it uses `git branch -d`, which refuses to delete unmerged work.
 - Check what is on GitHub with `gh api repos/{owner}/{repo}/branches`, not `git branch -r`, which can list stale references.
 - Before deleting any branch by hand, show the list and confirm each one is merged: `git rev-list --count origin/develop..origin/<branch>` is 0.
 - T3 Code deletes worktrees after their pull request merges, after 14 inactive days, or when their thread is deleted.
@@ -197,7 +209,7 @@ Once per clone:
 
 ```bash
 git config fetch.prune true
-git config alias.cleanup '!git fetch --prune && git branch --merged develop | grep -vE "^[*+]|^ *(main|develop)$" | xargs -r git branch -d'
+git config alias.cleanup '!git fetch --prune && git branch --merged develop | grep -vE "^[*+]|^ *(main|develop)$|^ *(research|prototype)/" | xargs -r git branch -d'
 ```
 
 Once per machine:
