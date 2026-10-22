@@ -33,7 +33,7 @@ Para que el skill funcione, la sesión de Claude debe tener acceso a estos insum
 | Esquema del marco          | `05-esquema-del-marco.md`            | Campos que trae todo marco jurídico y la regla que usa cada uno                                                                      |
 | Marco jurídico             | `marco-<ámbito>.md`                  | Normativa del ámbito que se revisa (estatal o federal): ley, reglamento, régimen temporal, preceptos, parámetros y valores de umbral |
 
-Los demás archivos del proyecto (`00-producto.md`, `06-solo-claude-desktop.md`, `CHANGELOG.md` y los `ejemplo-*.pdf`) también deben estar cargados: el paso 0 verifica que todos tengan la misma versión en su primera línea.
+Los demás archivos del proyecto (`00-producto.md`, `06-solo-claude-desktop.md`, `CHANGELOG.md` y los `ejemplo-*.pdf`) también deben estar cargados. El paso 0 verifica que los archivos de Argos 360 tengan la misma versión en su primera línea.
 
 Si falta el marco jurídico, el skill avisa antes de calificar y sigue solo si el usuario lo decide: todo precepto se cita «precepto por confirmar» y el marco se pide en «Documentación por requerir».
 
@@ -43,7 +43,7 @@ El entorno también necesita las herramientas técnicas que pide Argos 360 para 
 
 1. **Inventario, ficha, cronología y OCR.** La instancia principal lee todas las páginas y declara el ámbito, la entidad (o la Federación) y la fecha de verificación del marco jurídico.
 2. **Hechos neutros.** Se escribe `hechos.md` con la ficha, el inventario, la cronología, los cálculos y las citas textuales, sin calificaciones. Se copian al directorio de trabajo la metodología, el catálogo, el esquema del marco, el marco jurídico, los hechos y el OCR.
-3. **Calificación paralela.** Cinco subagentes califican por grupos: puntos 1–19, 20–34, 35–46, 47–60 y 61–70. Todo dato normativo se toma solo del marco jurídico.
+3. **Calificación paralela.** Cinco subagentes califican por grupos: puntos 1-19, 20-34, 35-46, 47-60 y 61-70. Todo dato normativo se toma solo del marco jurídico.
 4. **Pruebas transversales.** La instancia principal ejecuta B.0 a B.9 mientras corren los subagentes.
 5. **Consolidación.** Una sola instancia reaplica las reglas que cruzan puntos: rigor jurídico y citas (régimen aplicable, preceptos y umbrales), niveles de riesgo, y las reglas G1 a G5 y G8 de la metodología (documentos citados y no exhibidos, riesgo de cada resultado, riesgo por defecto, fuera del alcance documental, alusión documental al hecho y lecturas dudosas), con el tipo y alcance del legajo (B.0).
 6. **Verificación independiente.** Un subagente revisa cada resultado «No cumple» y cada riesgo Alto o Crítico, y lo confirma o refuta con el texto del OCR.

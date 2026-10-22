@@ -19,10 +19,10 @@ for n,p in P.items():
     if p['fuera_del_alcance'] and p['resultado']!='No acreditado': E(f'Punto {n}: marca fuera del alcance en resultado distinto de No acreditado')
     if p['fuera_del_alcance'] and 'fuera del alcance documental' not in p['analisis']: A(f'Punto {n}: el análisis no cita la marca «(fuera del alcance documental)»')
     if p['con_alusion'] and not (p['fuera_del_alcance'] and p['riesgo']=='Alto'): E(f'Punto {n}: alusión solo con fuera del alcance y riesgo Alto')
-    if p['fuera_del_alcance'] and p['riesgo']=='Alto' and not p['con_alusion']: E(f'Punto {n}: Alto fuera del alcance sin alusión (B.0)')
+    if p['fuera_del_alcance'] and p['riesgo']=='Alto' and not p['con_alusion']: E(f'Punto {n}: Alto fuera del alcance sin alusión (G5)')
     if n in K.PUNTOS_SIEMPRE_EN_ALCANCE and p['fuera_del_alcance']: E(f'Punto {n}: transversal, nunca fuera del alcance (G4)')
     if p['resultado']=='No acreditado' and n in K.G3 and p['riesgo']!=K.G3[n] and not re.search(r'G3|raz[oó]n|excepci',p['analisis']): A(f'Punto {n}: riesgo {p["riesgo"]} difiere de G3 ({K.G3[n]}) sin razón citada')
-    if p['resultado']=='No acreditado' and 'documentación puesta a disposición' not in p['analisis']: A(f'Punto {n}: falta la fórmula «no acreditado con la documentación puesta a disposición para la revisión»')
+    if p['resultado']=='No acreditado' and not p['analisis'].startswith('Sin evidencia suficiente:'): A(f'Punto {n}: el análisis no abre con «Sin evidencia suficiente:» (G3)')
 # 2. hallazgos
 prim={}
 for h in d.H:
