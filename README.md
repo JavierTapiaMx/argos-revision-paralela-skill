@@ -51,7 +51,7 @@ La lectura de pruebas se reparte para ganar tiempo, pero el juicio se centraliza
 
 ## Instalación
 
-**Opción 1: pedírselo a Claude.** En una sesión del proyecto Argos, escribe: «Instala el skill argos-revision-paralela desde https://github.com/JavierTapiaMx/argos-revision-paralela-skill». Claude lee el `SKILL.md` del repositorio y te muestra una tarjeta de propuesta; al guardarla se instala el skill. La tarjeta solo guarda el `SKILL.md`: los scripts no se instalan, el skill los descarga de este repositorio al ejecutarse (necesita que la sesión tenga acceso a `github.com`; si no lo tiene, avisa y sigue con el flujo manual).
+**Opción 1: pedírselo a Claude.** En una sesión del proyecto Argos, escribe: «Instala el skill argos-revision-paralela desde https://github.com/JavierTapiaMx/argos-revision-paralela-skill/tree/main». Claude lee el `SKILL.md` del repositorio y te muestra una tarjeta de propuesta; al guardarla se instala el skill. La tarjeta solo guarda el `SKILL.md`: los scripts no se instalan, el skill los descarga de este repositorio al ejecutarse (necesita que la sesión tenga acceso a `github.com`; si no lo tiene, avisa y sigue con el flujo manual).
 
 **Opción 2: archivo .zip.** Comprime la carpeta `argos-revision-paralela` (con `scripts/` y la plantilla JSON) de modo que `SKILL.md` quede dentro de esa carpeta, súbela en la sección de Skills de la configuración de Claude y reemplaza el skill si ya existe. El nombre exacto del menú puede variar según la versión de la aplicación.
 
@@ -77,16 +77,15 @@ El skill no cambia. Se sustituye solo el contenido de `marco-juridico-aplicable.
 
 ## Actualizar el skill
 
-1. Edita `SKILL.md` en este repositorio.
-2. Revisa los cambios con `git diff`.
-3. Registra el cambio con un mensaje que lleve la versión en el formato `versión yyyy.MM.dd.HHmm`, y súbelo con `git push`.
-4. Vuelve a comprimir la carpeta y súbela a Claude para reemplazar el skill instalado.
+Cada cambio sigue el flujo de [`docs/development/git-workflow.md`](docs/development/git-workflow.md): issue, rama, pull request a `develop` y release a `main` con una versión CalVer (`v2026.10.0`, `v2026.10.1`...). El skill descarga los scripts de `main`, así que un release los publica de inmediato. El `SKILL.md` instalado no se actualiza solo: después de cada release, reinstálalo con la opción 1 o la 2 de [Instalación](#instalación).
 
 ## Confidencialidad
 
 El material que se revisa con este skill pertenece a clientes. Este repositorio debe contener únicamente el skill y su documentación: no agregues expedientes, documentos digitalizados, resultados de revisiones ni datos de contratos reales. Si el repositorio se comparte fuera del despacho, revisa antes que el contenido de `SKILL.md` no incluya datos de un expediente real.
 
 ## Historial de versiones
+
+Desde `v2026.10.0`, el historial está en [Releases](https://github.com/JavierTapiaMx/argos-revision-paralela-skill/releases). Esta tabla conserva las versiones anteriores.
 
 | Versión         | Cambios                                                                                                                                                                                                               |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
