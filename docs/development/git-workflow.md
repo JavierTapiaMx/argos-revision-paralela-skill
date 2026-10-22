@@ -83,16 +83,19 @@ Read an issue before proposing to close it. A `wayfinder:map` stays open until t
    In T3 Code, link the pull request to the thread with `link_pull_request`.
 
 6. Stop. Check the preview where the repository has one, and wait for the developer to say "merge".
-7. On "merge", wait for the required checks, then merge with a merge commit:
+7. On "merge", read the head commit, wait for the required checks, then merge with a merge commit. `--match-head-commit` makes GitHub refuse the merge if a commit landed on the branch after the checks started, so nothing merges that no check or review saw. If GitHub refuses the merge because the head moved, stop and report the new commit:
 
    ```bash
+   sha=$(gh pr view --json headRefOid --jq .headRefOid)
    gh pr checks --watch --required
-   gh pr merge --merge --delete-branch
+   gh pr merge --merge --match-head-commit "$sha"
    ```
+
+   Never pass `--delete-branch`. The repository setting "Delete branch on merge" already deletes the branch on GitHub, and step 8 or T3 Code deletes the local one. From a worktree, `gh` before 2.99.0 fails after the merge when it tries to switch to `develop`, and `gh` 2.99.0 or later run from another checkout removes the worktree that holds the branch.
 
    If `develop` moved ahead, press Update branch on the pull request first. It merges `develop` into the branch.
 
-8. Update `develop` and delete merged local branches:
+8. Update `develop` and delete merged local branches. In a T3 Code worktree, skip this step: `develop` is checked out in the main checkout, so `git switch develop` fails. T3 Code deletes the worktree after the merge, and the next `git cleanup` in the main checkout deletes the branch.
 
    ```bash
    git switch develop && git pull
@@ -112,12 +115,13 @@ Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` star
    ```
 
 2. Pick the version: the latest tag from `gh release list`, plus one in the same month, or `.0` in a new month.
-3. Open the release pull request. On "merge", wait for the checks and merge it with a merge commit. Never pass `--delete-branch` here, because the head branch is `develop`:
+3. Open the release pull request. On "merge", read its head commit, wait for the checks, and merge it with a merge commit pinned to that commit:
 
    ```bash
    gh pr create --base main --head develop --title "Release v2026.10.0" --body "Release v2026.10.0"
-   gh pr checks --watch --required
-   gh pr merge --merge
+   sha=$(gh pr view <release-pr> --json headRefOid --jq .headRefOid)
+   gh pr checks <release-pr> --watch --required
+   gh pr merge <release-pr> --merge --match-head-commit "$sha"
    ```
 
 4. Wait for the deploy described in [Project-specific](#project-specific), if the repository has one.
@@ -133,8 +137,9 @@ Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` star
    gh api repos/{owner}/{repo}/rules/branches/main --jq '[.[].type] | index("deletion") != null'
    git push origin origin/main:refs/heads/sync/v2026.10.0   # only when the line above prints false
    gh pr create --base develop --head <main or sync/v2026.10.0> --title "Sync main into develop after v2026.10.0" --body "Sync main into develop after v2026.10.0"
-   gh pr checks --watch --required
-   gh pr merge --merge
+   sha=$(gh pr view <sync-pr> --json headRefOid --jq .headRefOid)
+   gh pr checks <sync-pr> --watch --required
+   gh pr merge <sync-pr> --merge --match-head-commit "$sha"
    ```
 
 ## Hotfix (`hotfix/*` -> `main`)
@@ -161,11 +166,12 @@ Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` star
 
    `Closes #88` neither closes nor links the issue, because `main` is not the default branch; it only shows as a mention in the issue's timeline. `/hotfix` closes the issue after the merge.
 
-3. On "merge", merge, wait for the deploy, release with the next version, and close the issue:
+3. On "merge", read the head commit, wait for the checks, merge pinned to that commit as in step 7 of the daily workflow, wait for the deploy, release with the next version, and close the issue:
 
    ```bash
+   sha=$(gh pr view --json headRefOid --jq .headRefOid)
    gh pr checks --watch --required
-   gh pr merge --merge --delete-branch
+   gh pr merge --merge --match-head-commit "$sha"
    gh release create v2026.10.1 --target main --generate-notes
    gh issue close 88
    ```
