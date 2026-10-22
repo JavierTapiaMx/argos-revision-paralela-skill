@@ -1,5 +1,5 @@
 {
-  "protocolo": "AAAA.MM.DD.HHmm (versión del protocolo aplicada)",
+  "protocolo": "1.3.1 · AAAA.MM.DD.HHmm (versión de Argos 360 aplicada)",
   "fecha": "D de mes de AAAA",
   "contrato": "Número del instrumento tal como aparece en el documento (p. ej. CM/XX/YYY/000/2000 UNO)",
   "contrato_archivo": "El mismo número con guiones en lugar de diagonales",
@@ -33,7 +33,7 @@
     "nota_inventario": "Duplicados por hash, significado de las claves de página, páginas enderezadas y foliado «x de y»",
     "alcance_no_obran": "Oración «No obran: ...» con los documentos que el legajo no contiene",
     "marco": "Declaración del marco jurídico (ámbito, entidad, ley, fecha de verificación, valores de referencia)",
-    "criterio_regimen": "Régimen aplicado y, si la fuente de los recursos no se identifica, la hipótesis de A.6",
+    "criterio_regimen": "Régimen aplicado y, si la fuente de los recursos no se identifica, la hipótesis del régimen por defecto del marco",
     "nota_cronologia": "Qué actos se resaltan, fines de semana e inhábiles"
   },
   "ficha_ejecutiva": {
