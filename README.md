@@ -51,7 +51,7 @@ La lectura de pruebas se reparte para ganar tiempo, pero el juicio se centraliza
 
 ## Instalación
 
-**Opción 1: pedírselo a Claude.** En una sesión del proyecto Argos, escribe: «Instala el skill argos-revision-paralela desde https://github.com/JavierTapiaMx/argos-revision-paralela-skill». Claude lee el `SKILL.md` del repositorio y te muestra una tarjeta de propuesta; al guardarla se instala el skill. La tarjeta solo guarda el `SKILL.md`: los scripts no se instalan, el skill los descarga de este repositorio al ejecutarse (necesita que la sesión tenga acceso a `github.com`; si no lo tiene, avisa y sigue con el flujo manual).
+**Opción 1: pedírselo a Claude.** En una sesión del proyecto Argos, escribe: «Instala el skill argos-revision-paralela desde https://github.com/JavierTapiaMx/argos-revision-paralela-skill/tree/main». Claude lee el `SKILL.md` del repositorio y te muestra una tarjeta de propuesta; al guardarla se instala el skill. La tarjeta solo guarda el `SKILL.md`: los scripts no se instalan, el skill los descarga de este repositorio al ejecutarse (necesita que la sesión tenga acceso a `github.com`; si no lo tiene, avisa y sigue con el flujo manual).
 
 **Opción 2: archivo .zip.** Comprime la carpeta `argos-revision-paralela` (con `scripts/` y la plantilla JSON) de modo que `SKILL.md` quede dentro de esa carpeta, súbela en la sección de Skills de la configuración de Claude y reemplaza el skill si ya existe. El nombre exacto del menú puede variar según la versión de la aplicación.
 

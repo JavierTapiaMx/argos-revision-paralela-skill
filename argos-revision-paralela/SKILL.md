@@ -24,7 +24,7 @@ Ubicación y obtención de `scripts/` (el skill instalado solo trae este `SKILL.
 3. Descarga desde el repositorio del skill:
 
 ```bash
-mkdir -p argos && cd argos && [ -d scripts ] || { git clone --depth 1 https://github.com/JavierTapiaMx/argos-revision-paralela-skill.git _repo \
+mkdir -p argos && cd argos && [ -d scripts ] || { git clone --branch main --depth 1 https://github.com/JavierTapiaMx/argos-revision-paralela-skill.git _repo \
   && cp -r _repo/argos-revision-paralela/scripts scripts && cp _repo/argos-revision-paralela/datos_revision.plantilla.json . ; }
 ```
 
