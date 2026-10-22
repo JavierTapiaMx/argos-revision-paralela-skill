@@ -1,6 +1,6 @@
 # argos-revision-paralela
 
-Skill de Claude que ejecuta la revisión Argos de un expediente de contratación pública (Matriz Operativa de 70 puntos de control) repartiendo el trabajo entre subagentes: hechos neutros únicos, calificación en paralelo por grupos de puntos, consolidación centralizada y verificación independiente de los hallazgos graves.
+Skill de Claude que ejecuta la revisión Argos de un expediente de contratación pública (70 puntos de control de Argos 360) repartiendo el trabajo entre subagentes: hechos neutros únicos, calificación en paralelo por grupos de puntos, consolidación centralizada y verificación independiente de los hallazgos graves.
 
 Este skill **no contiene reglas de revisión**. Solo organiza el trabajo. Las reglas viven en los archivos del proyecto Argos, que deben estar cargados.
 
@@ -22,26 +22,30 @@ README.md                            Este archivo (en la raíz del repositorio)
 
 ## Requisitos
 
-Para que el skill funcione, la sesión de Claude debe tener acceso a estos insumos. Lo más práctico es ejecutarlo dentro del proyecto Argos, donde ya están cargados:
+Para que el skill funcione, la sesión de Claude debe tener acceso a estos insumos. Lo más práctico es ejecutarlo dentro del proyecto Argos 360, donde ya están cargados. Las constantes de los scripts corresponden a Argos 360 1.3.1 (`VERSION_BASE` en `protocolo_const.py`); con otra versión, el skill avisa antes de calificar.
 
-| Insumo                     | Archivo                                                     | Para qué sirve                                                                                                         |
-| -------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Instrucciones del proyecto | (configuración del proyecto)                                | Definen el flujo de trabajo del apartado 3 que el skill ejecuta con subagentes                                         |
-| Protocolo de revisión      | `protocolo-de-revision-argos.md`                            | Reglas punto por punto, niveles de riesgo, tablero y entregables                                                       |
-| Marco jurídico aplicable   | `marco-juridico-aplicable.md`                               | Normativa del ámbito que se revisa (estatal o federal): ley, reglamento, preceptos, parámetros y valores de referencia |
-| Matriz Operativa           | `matriz-operativa-revision-contractual-y-fiscalizacion.md`  | Los 70 puntos de control, las categorías de resultado y la regla de trazabilidad                                       |
+| Insumo                     | Archivo                              | Para qué sirve                                                                                                                       |
+| -------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Instrucciones del proyecto | `01-instrucciones-claude-desktop.md` | Flujo de la conversación y qué hacer si faltan archivos o las versiones no coinciden                                                 |
+| Metodología                | `02-metodologia.md`                  | Pasos del análisis, calificación interna, reglas de decisión G1 a G9, pruebas transversales B.0 a B.9, rigor jurídico y estilo       |
+| Catálogo                   | `03-catalogo.md`                     | Las fichas de los 70 puntos de control en 12 rubros, con su riesgo por defecto y su etapa y documento ancla                          |
+| Entregables                | `04-entregables.md`                  | Tablero, informe, ficha ejecutiva, anexo de evidencias, datos estructurados y control de calidad                                     |
+| Esquema del marco          | `05-esquema-del-marco.md`            | Campos que trae todo marco jurídico y la regla que usa cada uno                                                                      |
+| Marco jurídico             | `marco-<ámbito>.md`                  | Normativa del ámbito que se revisa (estatal o federal): ley, reglamento, régimen temporal, preceptos, parámetros y valores de umbral |
 
-Si falta el marco jurídico, el skill se detiene: sin él, las referencias M.x del protocolo quedan sin dato y las calificaciones que dependen de ellas se descartan.
+Los demás archivos del proyecto (`00-producto.md`, `06-solo-claude-desktop.md`, `CHANGELOG.md` y los `ejemplo-*.pdf`) también deben estar cargados: el paso 0 verifica que todos tengan la misma versión en su primera línea.
 
-El entorno también necesita las herramientas técnicas que pide el protocolo para leer digitalizaciones (OCR en español y rasterizado de PDF) y una carpeta de trabajo donde guardar los entregables.
+Si falta el marco jurídico, el skill avisa antes de calificar y sigue solo si el usuario lo decide: todo precepto se cita «precepto por confirmar» y el marco se pide en «Documentación por requerir».
+
+El entorno también necesita las herramientas técnicas que pide Argos 360 para leer digitalizaciones (OCR en español y rasterizado de PDF) y una carpeta de trabajo donde guardar los entregables.
 
 ## Cómo funciona
 
 1. **Inventario, ficha, cronología y OCR.** La instancia principal lee todas las páginas y declara el ámbito, la entidad (o la Federación) y la fecha de verificación del marco jurídico.
-2. **Hechos neutros.** Se escribe `hechos.md` con la ficha, el inventario, la cronología, los cálculos y las citas textuales, sin calificaciones. Se copian al directorio de trabajo el protocolo, el marco jurídico, los hechos y el OCR.
+2. **Hechos neutros.** Se escribe `hechos.md` con la ficha, el inventario, la cronología, los cálculos y las citas textuales, sin calificaciones. Se copian al directorio de trabajo la metodología, el catálogo, el esquema del marco, el marco jurídico, los hechos y el OCR.
 3. **Calificación paralela.** Cinco subagentes califican por grupos: puntos 1–19, 20–34, 35–46, 47–60 y 61–70. Todo dato normativo se toma solo del marco jurídico.
 4. **Pruebas transversales.** La instancia principal ejecuta B.0 a B.9 mientras corren los subagentes.
-5. **Consolidación.** Una sola instancia reaplica las reglas que cruzan puntos (marco jurídico, niveles de riesgo, régimen por defecto, documentos citados y no exhibidos, riesgo por defecto, etapa y documento ancla, y alcance del expediente).
+5. **Consolidación.** Una sola instancia reaplica las reglas que cruzan puntos: rigor jurídico y citas (régimen aplicable, preceptos y umbrales), niveles de riesgo, y las reglas G1 a G5 y G8 de la metodología (documentos citados y no exhibidos, riesgo de cada resultado, riesgo por defecto, fuera del alcance documental, alusión documental al hecho y lecturas dudosas), con el tipo y alcance del legajo (B.0).
 6. **Verificación independiente.** Un subagente revisa cada resultado «No cumple» y cada riesgo Alto o Crítico, y lo confirma o refuta con el texto del OCR.
 7. **Entregables.** Se generan el Tablero de control, el Informe de revisión, la Ficha ejecutiva, el Anexo de evidencias y el archivo de datos en JSON, y se guardan directamente en la carpeta de trabajo.
 
@@ -73,7 +77,7 @@ Cada ejecución es independiente. El skill no consulta ni compara resultados, JS
 
 ## Cambiar de entidad federativa o de ámbito
 
-El skill no cambia. Se sustituye solo el contenido de `marco-juridico-aplicable.md`, conservando su nombre y su estructura (M.0 a M.5). Esa guía está al final del propio archivo del marco jurídico.
+El skill no cambia. Se carga en el proyecto el marco del ámbito que se revisa (`marco-<ámbito>.md`, por ejemplo `marco-chihuahua.md` o `marco-federal.md`), con todos los campos de `05-esquema-del-marco.md` en el mismo orden. Para crear el marco de un ámbito nuevo, sigue «Para agregar un ámbito», al final de `05-esquema-del-marco.md`.
 
 ## Actualizar el skill
 
