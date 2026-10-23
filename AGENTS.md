@@ -33,19 +33,19 @@ ARGOS_DATOS=datos_revision.json ARGOS_SALIDA=. bash scripts/build_all.sh   # cap
 ARGOS_DATOS=datos_revision.json ARGOS_SALIDA=. python3 scripts/qc.py       # solo el control de calidad mecánico
 ```
 
-<!-- dev-workflow:git-workflow:start - written by /setup-dev-workflow -->
+<!-- dev-workflow:git-workflow:start - written by /dev-workflow:setup-dev-workflow -->
 ## Git workflow
 
 Before creating a branch, committing, opening or merging a pull request, or releasing, read [`docs/development/git-workflow.md`](docs/development/git-workflow.md).
 <!-- dev-workflow:git-workflow:end -->
 
-<!-- dev-workflow:working-with-the-developer:start - written by /setup-dev-workflow -->
+<!-- dev-workflow:working-with-the-developer:start - written by /dev-workflow:setup-dev-workflow -->
 ## Working with the developer
 
 - Work one step at a time. Before each step, say what it changes and why.
 - Commit each step on its own, then stop until the developer replies "next" (or "siguiente").
-- Under `/implement` or `/implement-spec`, assign each issue to yourself before any other write.
-- Under `/implement` or `/implement-spec`, do every step and commit each one without stopping.
+- Under `/mattpocock-skills:implement` or `/mattpocock-skills:implement-spec`, assign each issue to yourself before any other write.
+- Under `/mattpocock-skills:implement` or `/mattpocock-skills:implement-spec`, do every step and commit each one without stopping.
 - When the work is done, open the pull request and stop. Merge only when the developer replies "merge".
 <!-- dev-workflow:working-with-the-developer:end -->
 

@@ -1,6 +1,6 @@
 # Git workflow
 
-<!-- dev-workflow:base:start - written by /setup-dev-workflow; edit the base in JavierTapiaMx/dev-workflow, not here -->
+<!-- dev-workflow:base:start - written by /dev-workflow:setup-dev-workflow; edit the base in JavierTapiaMx/dev-workflow, not here -->
 
 This repository has one developer. Every change goes issue -> branch -> pull request into `develop` -> release pull request into `main`. Why two long-lived branches and merge commits: [dev-workflow ADR 0001](https://github.com/JavierTapiaMx/dev-workflow/blob/develop/docs/adr/0001-develop-and-main-with-merge-commits.md). Why CalVer: [dev-workflow ADR 0002](https://github.com/JavierTapiaMx/dev-workflow/blob/develop/docs/adr/0002-calver-for-every-version.md).
 
@@ -14,7 +14,7 @@ Values that differ per repository (GitHub Project number, deploy, checks) are in
 | `develop` | Default branch. Integrated work waiting for the next release. |
 | `feature/*`, `bugfix/*`, `chore/*`, `refactor/*`, `docs/*` | One branch per issue, created from `develop`. |
 | `hotfix/*` | Urgent fix of a release, created from `main`. |
-| `research/*`, `prototype/*` | Pushed by `/wayfinder` without a pull request. Never deleted, because their tickets link to them. |
+| `research/*`, `prototype/*` | Pushed by `/mattpocock-skills:wayfinder` without a pull request. Never deleted, because their tickets link to them. |
 | `dependabot/*` | Opened by Dependabot. No issue. |
 
 Name branches `<type>/<issue-number>-<short-kebab-description>`, for example `feature/42-add-login-form`.
@@ -39,7 +39,7 @@ gh project item-edit <project-number> --owner JavierTapiaMx --url <issue-url> --
 
 Wayfinder maps and tickets (labels `wayfinder:*`) hold decisions, not implementation work. They carry only their `wayfinder:*` label: no other labels, no Priority, no Size.
 
-A Wayfinder ticket gets a `docs/*` branch and a pull request only when its resolution changes repository files, such as `GLOSSARY.md` or an ADR. That pull request follows the daily workflow from step 2, except that its body mentions the ticket as "see #n" instead of `Closes #n`: the Wayfinder skill closes the ticket when it records the resolution. Otherwise the ticket resolves on the issue, with no `docs/*` branch or pull request. Research and prototype findings still go on their own `research/*` and `prototype/*` branches.
+A Wayfinder ticket gets a `docs/*` branch and a pull request only when its resolution changes repository files, such as `GLOSSARY.md` or an ADR. That pull request follows the daily workflow from step 2, except that its body mentions the ticket as "see #n" instead of `Closes #n`: `/mattpocock-skills:wayfinder` closes the ticket when it records the resolution. Otherwise the ticket resolves on the issue, with no `docs/*` branch or pull request. Research and prototype findings still go on their own `research/*` and `prototype/*` branches.
 
 ### Starting work
 
@@ -50,8 +50,8 @@ Assign the issue to yourself before any other write: `gh issue edit <n> --add-as
 | Issue type | How it closes |
 | --- | --- |
 | Feature, bugfix, chore, refactor, docs | The pull request body starts with `Closes #<n>`. Merging into `develop` closes the issue. |
-| Hotfix | The pull request targets `main`, which is not the default branch, so `Closes` does nothing. `/hotfix` runs `gh issue close <n>` after the merge. |
-| Wayfinder ticket | The Wayfinder skill closes it when it records the resolution. |
+| Hotfix | The pull request targets `main`, which is not the default branch, so `Closes` does nothing. `/dev-workflow:hotfix` runs `gh issue close <n>` after the merge. |
+| Wayfinder ticket | `/mattpocock-skills:wayfinder` closes it when it records the resolution. |
 
 Only the first line of a pull request body may hold a closing keyword (`close`, `closes`, `fix`, `fixes`, `resolve`, `resolves` followed by `#n`). GitHub closes every issue that follows one, wherever it appears, so mention any other issue as "see #n".
 
@@ -69,16 +69,16 @@ Read an issue before proposing to close it. A `wayfinder:map` stays open until t
 
    In T3 Code, start the thread in a new worktree and begin the first message with `Issue #42:`. The branch naming setting turns that into the branch name.
 
-3. Implement. `/implement` ends with `/code-review`; for a change made without `/implement`, run `/code-review origin/develop` before opening the pull request.
+3. Implement. `/mattpocock-skills:implement` ends with `/mattpocock-skills:code-review`; for a change made without `/mattpocock-skills:implement`, run `/mattpocock-skills:code-review origin/develop` before opening the pull request.
 4. Commit. The subject is imperative, starts with a capital letter, has no `feat:`-style prefix, and ends with the issue number: `Add login form validation (#42)`. Write it in the language `AGENTS.md` sets for GitHub text. Merge commits keep every commit in history, so each commit describes one change.
-5. Push and open the pull request. The base defaults to `develop`. The title describes the change without the issue number: GitHub adds the pull request number to the merge commit, and `Closes #n` links the issue. The body is `.github/pull_request_template.md` filled in, starting with `Closes #42`. Pass it with `--body-file -`, not `--fill`, which writes the body from the commits and skips the template:
+5. Push and open the pull request. The base defaults to `develop`. The title describes the change without the issue number: GitHub adds the pull request number to the merge commit, and `Closes #n` links the issue. Write the body with `/mattpocock-skills:pr`, following the sections of `.github/pull_request_template.md`, starting with `Closes #42`. Release and sync pull requests keep their one-line body, and a Wayfinder ticket's pull request says "see #n" instead of `Closes #n`. Pass the body with `--body-file -`, not `--fill`, which writes it from the commits and skips the template:
 
    ```bash
    git push -u origin feature/42-add-login-form
    gh pr create --title "Add login form validation" --body-file - <<'EOF'
    Closes #42
 
-   <the other sections of .github/pull_request_template.md, filled in>
+   <the other sections, written with /mattpocock-skills:pr>
    EOF
    ```
 
@@ -116,7 +116,7 @@ The agent never destroys work or forces anything without the developer's authori
 
 ## Release (`develop` -> `main`)
 
-`/release` runs these steps. They are written here so a release can also be done by hand.
+`/dev-workflow:release` runs these steps. They are written here so a release can also be done by hand.
 
 Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` starts at 0 each month and goes up by one for every release or hotfix in that month: `v2026.10.0`, `v2026.10.1`, `v2026.11.0`.
 
@@ -156,7 +156,7 @@ Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` star
 
 ## Hotfix (`hotfix/*` -> `main`)
 
-`/hotfix` runs these steps.
+`/dev-workflow:hotfix` runs these steps.
 
 1. Create the issue and the branch from `main`:
 
@@ -172,11 +172,11 @@ Versions use CalVer `vYEAR.MONTH.N`, with no zero padding on the month. `N` star
    gh pr create --base main --title "Fix auth crash" --body-file - <<'EOF'
    Closes #88
 
-   <the other sections of .github/pull_request_template.md, filled in>
+   <the other sections, written with /mattpocock-skills:pr>
    EOF
    ```
 
-   `Closes #88` neither closes nor links the issue, because `main` is not the default branch; it only shows as a mention in the issue's timeline. `/hotfix` closes the issue after the merge.
+   `Closes #88` neither closes nor links the issue, because `main` is not the default branch; it only shows as a mention in the issue's timeline. `/dev-workflow:hotfix` closes the issue after the merge.
 
 3. On "merge", read the head commit, wait for the checks, merge pinned to that commit as in step 7 of the daily workflow, wait for the deploy, release with the next version, and close the issue:
 
