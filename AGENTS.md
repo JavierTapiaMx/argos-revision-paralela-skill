@@ -14,7 +14,7 @@ Everything is in English, except these, which are in Spanish:
 - Code comments.
 - Anything the client sees: the skill's `SKILL.md` body, deliverables, and their file names.
 
-These stay in English even inside the exceptions: code, identifiers, and file names not covered above; names a tool imposes (`SKILL.md`, `CHANGELOG.md`, `LICENSE.txt`, label names, `Closes #n`, text a skill looks for); and files a tool generates from its own template (`/setup-matt-pocock-skills`, `/setup-dev-workflow`), including the base section of `docs/development/git-workflow.md` and the pull request template.
+These stay in English even inside the exceptions: code, identifiers, and file names not covered above; names a tool imposes (`SKILL.md`, `CHANGELOG.md`, `LICENSE.txt`, label names, `Closes #n`, text a skill looks for); and files a tool generates from its own template (`/mattpocock-skills:setup-matt-pocock-skills`, `/dev-workflow:setup-dev-workflow`), including the base section of `docs/development/git-workflow.md` and the pull request template.
 
 Use a regular hyphen `-` in every text. Never an em dash or an en dash.
 
@@ -33,19 +33,19 @@ ARGOS_DATOS=datos_revision.json ARGOS_SALIDA=. bash scripts/build_all.sh   # cap
 ARGOS_DATOS=datos_revision.json ARGOS_SALIDA=. python3 scripts/qc.py       # solo el control de calidad mecánico
 ```
 
-<!-- dev-workflow:git-workflow:start - written by /setup-dev-workflow -->
+<!-- dev-workflow:git-workflow:start - written by /dev-workflow:setup-dev-workflow -->
 ## Git workflow
 
 Before creating a branch, committing, opening or merging a pull request, or releasing, read [`docs/development/git-workflow.md`](docs/development/git-workflow.md).
 <!-- dev-workflow:git-workflow:end -->
 
-<!-- dev-workflow:working-with-the-developer:start - written by /setup-dev-workflow -->
+<!-- dev-workflow:working-with-the-developer:start - written by /dev-workflow:setup-dev-workflow -->
 ## Working with the developer
 
 - Work one step at a time. Before each step, say what it changes and why.
 - Commit each step on its own, then stop until the developer replies "next" (or "siguiente").
-- Under `/implement` or `/implement-spec`, assign each issue to yourself before any other write.
-- Under `/implement` or `/implement-spec`, do every step and commit each one without stopping.
+- Under `/mattpocock-skills:implement` or `/mattpocock-skills:implement-spec`, assign each issue to yourself before any other write.
+- Under `/mattpocock-skills:implement` or `/mattpocock-skills:implement-spec`, do every step and commit each one without stopping.
 - When the work is done, open the pull request and stop. Merge only when the developer replies "merge".
 <!-- dev-workflow:working-with-the-developer:end -->
 
