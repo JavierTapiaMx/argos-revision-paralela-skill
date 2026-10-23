@@ -232,7 +232,7 @@ Settings -> Storage: delete worktrees with deleted threads, delete inactive work
 
 ## Project-specific
 
-Owned by this repository. `/setup-dev-workflow` never overwrites this section.
+Owned by this repository. `/dev-workflow:setup-dev-workflow` never overwrites this section.
 
 ### GitHub Project
 

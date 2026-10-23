@@ -14,7 +14,7 @@ Everything is in English, except these, which are in Spanish:
 - Code comments.
 - Anything the client sees: the skill's `SKILL.md` body, deliverables, and their file names.
 
-These stay in English even inside the exceptions: code, identifiers, and file names not covered above; names a tool imposes (`SKILL.md`, `CHANGELOG.md`, `LICENSE.txt`, label names, `Closes #n`, text a skill looks for); and files a tool generates from its own template (`/setup-matt-pocock-skills`, `/setup-dev-workflow`), including the base section of `docs/development/git-workflow.md` and the pull request template.
+These stay in English even inside the exceptions: code, identifiers, and file names not covered above; names a tool imposes (`SKILL.md`, `CHANGELOG.md`, `LICENSE.txt`, label names, `Closes #n`, text a skill looks for); and files a tool generates from its own template (`/mattpocock-skills:setup-matt-pocock-skills`, `/dev-workflow:setup-dev-workflow`), including the base section of `docs/development/git-workflow.md` and the pull request template.
 
 Use a regular hyphen `-` in every text. Never an em dash or an en dash.
 
